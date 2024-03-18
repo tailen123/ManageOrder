@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
 from ManageOrder.models import models_order
+from ManageOrder.database.databases_order import atomicity
 
 
+@atomicity
 # 获取多个订单
 def get_orders(db: Session, skip: int = 0, limit: int = 100):
     orders = db.query(models_order.Order).filter(models_order.Order.flag_id == 1).offset(skip).limit(limit).all()

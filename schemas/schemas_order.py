@@ -1,12 +1,9 @@
 from pydantic import BaseModel
 
 
-
 class OrderBase(BaseModel):
-
     order_id: int
     note: str
-
 
 
 class OrderCreate(OrderBase):
@@ -22,5 +19,3 @@ class Order(OrderBase):
 
 class Order_list(BaseModel):
     orders: list[Order]
-
-
