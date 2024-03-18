@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-import uvicorn
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
@@ -64,10 +63,8 @@ async def login(username: str, password: str):
             headers={"WWW-Authenticate": "Bearer"},
         )
     expire = datetime.utcnow() + timedelta(minutes=30)
-    start = datetime.utcnow()
-    start_str = start.strftime("%Y-%m-%d %H:%M:%S")
     expire_str = expire.strftime("%Y-%m-%d %H:%M:%S")
-    token_data = {"sub": username, "star": start_str, "exp": expire_str}
+    token_data = {"sub": username, "exp": expire_str}
     token = create_access_token(token_data)
     return {"access_token": token, "token_type": "bearer"}
 
