@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends, FastAPI
 
-from ManageOrder.crud.crud_order import get_orders, get_order_by_id, delete_order, update_order, create_order
+from ManageOrder.crud.crud_order import get_orders_from_db, get_order_by_id, delete_order, update_order, create_order
 from sqlalchemy.orm import Session
 from ManageOrder.database.databases_order import get_db
 from fastapi import FastAPI, Depends, HTTPException, status, Request
@@ -37,9 +37,9 @@ ALGORITHM = "HS256"
 #     return response
 
 
-@router.get("/", response_model=Order_list)
+@router.get("/")
 async def get_orders(db: Session = Depends(get_db)):
-    orders = get_orders(db)
+    orders =get_orders_from_db(db)
     return orders
 
 
